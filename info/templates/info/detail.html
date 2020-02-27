@@ -1,0 +1,45 @@
+<img src="https://www.digarc.com/wp-content/uploads/unt-university-of-north-texas-logo02-640x207.png">
+<body bgcolor="#A7C878">
+</br> </br>
+
+<img src ="{{ student.image }}" width = "200" height = "250">
+
+<h1>{{ student.first_name }} {{ student.last_name}} </h1>
+<h3> {{ student.degree_level }}, {{ student.program }} </h3>
+<h3> ID: {{ student.student_id }}</h3>
+<h3> Email: <a href = "mailto:">{{ student.email }}</a></h3>
+<hr><hr>
+
+
+<h2> Undergraduate </h2>
+{% for undergrad in student.undergrad_set.all %}
+    <h3> Major - {{ undergrad.major }} ({{ undergrad.ba_year }}) </h3>
+    <h3> Minor - {{ undergrad.minor }} </h3>
+    <h3> University - {{ undergrad.ba_university }} </h3>
+{% endfor %}
+<hr>
+
+
+<h2> Masters </h2>
+{% for masters in student.masters_set.all %}
+    <h3> Major - {{ masters.ms_major }} ({{ masters.ms_year }}) </h3>
+    <h3> University - {{ masters.ms_university }} </h3>
+{% endfor %}
+<hr>
+{{ endif }}
+
+<h2> PhD </h2>
+{% for phd in student.phd_set.all %}
+    <h3> Major - {{ phd.phd_major }} </h3>
+    <h3> Research Professor - {{ phd.research_professor }} </h3>
+{% endfor %}
+<hr>
+
+
+<h2> Employment </h2>
+{% for employment in student.employment_set.all %}
+    <h3> Position - {{ employment.position }} </h3>
+    <h3> Pay - {{ employment.pay_level }} </h3>
+    <h3> Funding Source - {{ employment.funding_source }} </h3>
+{% endfor %}
+

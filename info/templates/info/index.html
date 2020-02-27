@@ -1,0 +1,20 @@
+<!-- Loading static files -->
+<!--
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'info/style.css' %}" />
+-->
+
+<img src="https://www.digarc.com/wp-content/uploads/unt-university-of-north-texas-logo02-640x207.png">
+<body bgcolor="#A7C878">
+
+
+{% if object_list %}
+    <h3>All Students:</h3>
+    <ul>
+        {% for student in object_list %}
+            <li> <a href= "{% url 'info:detail' student.id %}">{{ student.first_name}}  {{student.last_name}} - {{student.student_id}} - {{student.degree_level}} </a></li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <h3> No Student added </h3>
+{% endif %}
