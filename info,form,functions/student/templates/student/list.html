@@ -1,0 +1,185 @@
+{% extends 'core/layout/master.html' %}
+{% load static %}
+
+{% block styles %}
+  <style>
+    .fa-ul li{
+      margin-bottom: 5px;
+    }
+    .box-title{
+      margin-right: 10px !important;
+    }
+  </style>
+{% endblock%}
+
+{% block content %}
+  <section class="content-header">
+        <h1>
+          Students
+        </h1>
+        <ol class="breadcrumb">
+          <li><a href="{% url 'core:dashboard' %}"><i class="fa fa-dashboard"></i> Home</a></li>
+          <li><a href="{% url 'core:list_users' %}">Students</a></li>
+          <li class="active">List</li>
+        </ol>
+    </section>
+
+    <section class="content">
+      <div class="box">
+      {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                {{ message }}
+              </div>
+            {% endfor %}
+        {% endif %}
+
+      <div class="box-header with-border">
+          <div class="box-body">
+            <form method="GET" autocomplete="off">
+				      <div class="row">
+				        <div class="col-xs-3">
+				          	<label>Full Name</label>
+				          	<input type="text" name="full_name" value="{{request.GET.full_name}}" class="form-control" placeholder="Full Name">
+				        </div>
+				        <div class="col-xs-3">
+				          	<label>Student ID</label>	
+				          	<input type="text" value="{{request.GET.student_id}}" name="student_id" class="form-control" placeholder="Student ID">
+				        </div>
+				        <div class="col-xs-3">
+				        	<label>EUID</label>
+				          	<input type="text" value="{{request.GET.euid}}" name="euid" class="form-control" placeholder="EUID">
+				        </div>
+				        <div class="col-xs-3">
+				        	<label>Phone Number</label>
+				          	<input type="text" value="{{request.GET.phone_number}}" name="phone_number" class="form-control" placeholder="Phone Number">
+				        </div>
+                			        
+				        <div class="col-xs-2 pull-right" style="margin: 10px;">
+				        	<button class="btn btn-block btn-primary btn-flat">Search</button>
+				        </div>				        
+				        <div class="col-xs-2" style="margin-top: 10px;">
+				        	<a class="btn btn-flat btn-block btn-warning" href="{% url 'student:list_student' %}">
+				        	Reset Search</a>
+				        </div>
+			    	
+			      </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="box box-primary">
+        <div class="box-body" style="background-color: #ECF0F5;">
+        {% for student in students %}
+          <div class="col-md-6">
+            <div class="box box-solid">
+              <div class="box-header with-border">
+
+                <h3 class="box-title">
+                    {{ student.first_name }}
+                      {% if student.middle_name %}
+                        {{ student.middle_name }}
+                      {% endif %}
+                    {{ student.last_name }}
+                </h3>
+                <span class="badge bg-blue">
+                  {% if student.race == 'AS' %}
+                    Asian
+                  {% else %}
+                    American
+                  {% endif %}
+                </span>
+                <span class="badge bg-green">
+                  {% if student.gender == 'M' %}
+                    Male
+                  {% elif student.gender == 'F' %}
+                    Female
+                  {% else %}
+                    Other
+                  {% endif %}
+                </span>
+                <span class="badge bg-green">
+                  {{ student.program }}
+                </span>
+              </div>
+              <!-- /.box-header -->
+              <div class="box-body">
+              <div class="row">
+                <div class="col-md-4">
+                {% if student.image %}
+                      <img src="{{ student.image.url }}" style="width: 140px; height: 140px;">
+                {% else %}
+                  <img src="/media/unt.svg" style="width: 140px; height: 140px;">
+                {% endif %}
+                </div>
+                <div class="col-md-6">
+                    <ul class="ml-4 mb-0 fa-ul text-muted">
+                        <li class="small">
+                          <span class="fa-li"><i class="fa fa-lg fa-address-card"></i></span> 
+                          Student ID: {{ student.student_id }}
+                        </li>
+                        <li class="small">
+                          <span class="fa-li"><i class="fa fa-lg fa-id-badge"></i></span> 
+                          EUID: {{ student.euid }}
+                        </li>
+                        <li class="small">
+                          <span class="fa-li"><i class="fa fa-lg fa-phone"></i></span>
+                          Phone #: {{ student.phone_number }}
+                        </li>
+                        <li class="small">
+                          <span class="fa-li"><i class="fa fa-lg fa-calendar"></i></span>
+                          Year-Semester: {{ student.year }}-{{ student.semester }}
+                        </li>
+                        <li class="small">
+                          <span class="fa-li"><i class="fa fa-lg fa-users"></i></span>
+                          Advisro: {{ student.advisor }}
+                        </li>
+                        <li class="small">
+                          <span class="fa-li"><i class="fa fa-lg fa-users"></i></span>
+                          Current Academic Level: 
+                          {% if student.current_academic_level == 'B' %}
+                            Bachelors
+                          {% elif student.current_academic_level == 'M' %}
+                            Masters
+                          {% elif student.current_academic_level == 'H' %}
+                            High School
+                          {% else %}
+                            PHD
+                          {% endif %}
+                        </li>
+                        <li class="small">
+                          <span class="fa-li"><i class="fa fa-lg fa-building"></i></span> 
+                          Address: {{ student.address_line }},{{student.city}},{{student.state}},{{student.zip_code}}
+                        </li>
+                    </ul>
+                </div>
+              </div>
+              <div class="row" style="margin-top: 5px;">
+                  <a href="{% url 'student:update_student' student.pk %}" class="btn btn-sm btn-warning">
+                  <i class="fa fa-edit"> Profile</i>
+                  </a>
+                  <a href="{% url 'student:list_education_history' student.pk %}" class="btn btn-sm btn-primary">
+                  <i class="fa fa-graduation-cap"> Education</i>
+                  </a>
+                  <a href="{% url 'student:list_user_files' student.pk %}" class="btn btn-sm btn-success">
+                  <i class="fa fa-file"> Files</i>
+                  </a>
+                  <a href="{% url 'student:list_user_notes' student.pk %}" class="btn btn-sm btn-success bg-teal">
+                  <i class="fa fa-sticky-note"> Notes</i>
+                  </a>
+                  <a href="{% url 'student:list_user_employment_history' student.pk %}" class="btn btn-sm btn-success bg-purple">
+                  <i class="fa fa-briefcase"> Employment History</i>
+                  </a>
+              </div>
+              </div>
+              <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+          </div>
+        {% endfor %}
+        </div>
+      </div>
+    </section>
+
+{% endblock content %}

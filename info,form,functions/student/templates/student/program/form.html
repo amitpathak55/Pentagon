@@ -1,0 +1,76 @@
+{% extends 'core/layout/master.html' %}
+{% load add_class %}
+{% load static %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'core/assets/select2/css/select2.min.css' %}">
+    <style>
+        label{
+            margin: 5px 0px;
+            display: block;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <section class="content-header">
+          <h1>
+            Program
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="{% url 'core:dashboard' %}"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="{% url 'core:list_users' %}">Program</a></li>
+            <li class="active">Create</li>
+          </ol>
+    </section>
+
+    <section class="content">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                {% if messages %}
+                    {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible">
+                       <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        {{ message }}
+                      </div>
+                    {% endfor %}
+                {% endif %}
+                {% if form.non_field_errors %}
+                <div class="non-field-errors">
+                    {% for err in form.non_field_errors %}
+                    <div class="alert alert-danger alert-dismissible">
+                       <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        {{ err }}
+                      </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+            <form role="form" method="POST" enctype="multipart/form-data" autocomplete="off">
+                {% csrf_token %}
+                <div class="box-body">
+                    <label>Title</label>
+                    {{ form.name | add_class:"form-control" }}
+                    {{ form.name.errors }}
+                </div>
+                <div class="box-body">
+                    <label>Degree</label>
+                    {{ form.degree | add_class:"form-control" }}
+                    {{ form.degree.errors }}
+                </div>
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary pull-right btn-flat">Submit</button>
+                </div>
+            </form>
+        </div>
+
+    </section>
+
+{% endblock content %}
+
+{% block scripts %}
+<script src="{% static 'core/assets/select2/js/select2.min.js' %}"></script>
+<script>
+
+</script>
+{% endblock %}
+
+

@@ -1,0 +1,99 @@
+{% extends 'core/layout/master.html' %}
+{% load static %}
+
+{% block content %}
+  <section class="content-header">
+        <h1>
+          Notes
+        </h1>
+        <a href="{% url 'student:add_user_note' student.pk %}" class="btn btn-success">
+            <i class="fa fa-plus"></i> Add New Note
+        </a>
+        <ol class="breadcrumb">
+          <li><a href="{% url 'core:dashboard' %}"><i class="fa fa-dashboard"></i> Home</a></li>
+          <li><a href="{% url 'core:list_users' %}">Students</a></li>
+          <li><a href="#">
+            {{ student.first_name }}
+                {% if student.middle_name %}
+                {{ student.middle_name }}
+                {% endif %}
+            {{ student.last_name }}
+          </a></li>
+          <li><a href="#">Notes</a></li>
+          <li class="active">List</li>
+        </ol>
+    </section>
+
+    <section class="content">
+      <div class="box">
+              {% if messages %}
+                    {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible">
+                       <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        {{ message }}
+                      </div>
+                    {% endfor %}
+                {% endif %}
+              <div class="box-header with-border">
+          <div class="box-body">
+            <table class="table table-bordered">
+              <tbody>
+                <th>S.N</th>
+                <th>Note</th>
+                <th>Created By</th>
+                <th>Created Date</th>
+                <th>Actions</th>
+                {% for note in notes %}
+                <tr>
+                  <td>{{ forloop.counter }}</td>
+                  <td>{{ note.note }}</td>
+                  <td>
+                    {{ note.created_by.first_name }}
+                        {% if note.created_by.middle_name %}
+                        {{ note.created_by.middle_name }}
+                        {% endif %}
+                    {{ note.created_by.last_name }}
+                  </td>
+                  <td>{{ note.created_date }}</td>
+                  <td>
+                    <a href="{% url 'student:update_user_note' note.pk %}" class="btn btn-warning">
+                        <i class="fa fa-edit"></i> Edit</a>
+                    <a href="{% url 'student:delete_user_note' note.pk %}" class="delete_btn btn btn-danger">
+                        <i class="fa fa-trash"></i> Delete</a>
+                  </td>
+                  <td>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+{% endblock content %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script>
+$('.delete_btn').on('click', function(e){
+  e.preventDefault();
+  url = $(this).attr('href');
+  Swal.fire({
+  title: 'Are you sure?',
+  text: "You won't be able to revert this!",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Yes, delete it!'
+}).then((result) => {
+  if (result.value) {
+    window.location.href = url;
+  }
+})
+})
+</script>
+{% endblock %}
