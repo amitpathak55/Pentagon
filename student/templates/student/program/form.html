@@ -13,11 +13,11 @@
 {% block content %}
     <section class="content-header">
           <h1>
-            Degree
+            Program
           </h1>
           <ol class="breadcrumb">
             <li><a href="{% url 'core:dashboard' %}"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li><a href="{% url 'core:list_users' %}">Degree</a></li>
+            <li><a href="{% url 'core:list_users' %}">Program</a></li>
             <li class="active">Create</li>
           </ol>
     </section>
@@ -33,13 +33,28 @@
                       </div>
                     {% endfor %}
                 {% endif %}
+                {% if form.non_field_errors %}
+                <div class="non-field-errors">
+                    {% for err in form.non_field_errors %}
+                    <div class="alert alert-danger alert-dismissible">
+                       <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        {{ err }}
+                      </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
             </div>
             <form role="form" method="POST" enctype="multipart/form-data" autocomplete="off">
                 {% csrf_token %}
                 <div class="box-body">
                     <label>Title</label>
-                    {{ form.title | add_class:"form-control" }}
-                    {{ form.title.errors }}
+                    {{ form.name | add_class:"form-control" }}
+                    {{ form.name.errors }}
+                </div>
+                <div class="box-body">
+                    <label>Degree</label>
+                    {{ form.degree | add_class:"form-control" }}
+                    {{ form.degree.errors }}
                 </div>
                 <div class="box-footer">
                     <button type="submit" class="btn btn-primary pull-right btn-flat">Submit</button>
