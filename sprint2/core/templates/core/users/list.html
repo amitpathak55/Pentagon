@@ -1,0 +1,71 @@
+{% extends 'core/layout/master.html' %}
+{% load static %}
+
+{% block content %}
+  <section class="content-header">
+        <h1>
+          Users
+        </h1>
+        <ol class="breadcrumb">
+          <li><a href="{% url 'core:dashboard' %}"><i class="fa fa-dashboard"></i> Home</a></li>
+          <li><a href="{% url 'core:list_users' %}">Users</a></li>
+          <li class="active">List</li>
+        </ol>
+    </section>
+
+    <section class="content">
+      <div class="box">
+              {% if messages %}
+                    {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible">
+                       <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        {{ message }}
+                      </div>
+                    {% endfor %}
+                {% endif %}
+              <div class="box-header with-border">
+                <h3 class="box-title">All Users</h3>
+          <div class="box-body">
+            <table class="table table-bordered">
+              <tbody>
+                <th>S.N</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Group</th>
+                <th>Action</th>
+                {% for user in users %}
+                <tr>
+                  <td>{{ forloop.counter }}</td>
+                  <td>{{ user.first_name }}</td>
+                  <td>{{ user.last_name }}</td>
+                  <td>{{ user.email }}</td>
+                  <td>
+                    {% if user.group_id.name %}
+                      {{ user.group_id.name }}
+                    {% else %}
+                      Super-Admin
+                    {% endif %}
+                  </td>
+                  <td>
+                    <a href="{% url 'core:update_user' user.id %}">
+                      <button class="btn btn-warning btn-sm">Edit User</button>
+                    </a>
+                    <a onclick="return confirm('Are You Sure You Want To Remove The User.');" href="{% url 'core:delete_user' user.id %}">
+                      <button class="btn btn-danger btn-sm">Remove User</button>
+                    </a>                    
+                    <a href="{% url 'core:change_password_user' user.id %}">
+                      <button class="btn btn-primary btn-sm">Change Password</button>
+                    </a>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+{% endblock content %}
