@@ -1,0 +1,52 @@
+{% extends 'core/layout/master.html' %}
+{% load static %}
+
+{% block content %}
+  <section class="content-header">
+        <h1>
+          Groups
+        </h1>
+        <ol class="breadcrumb">
+          <li><a href="{% url 'core:dashboard' %}"><i class="fa fa-dashboard"></i> Home</a></li>
+          <li><a href="#">Groups</a></li>
+          <li class="active">List</li>
+        </ol>
+    </section>
+
+    <section class="content">
+      <div class="box">
+              <div class="box-header with-border">
+          <div class="box-body">
+            <table class="table table-bordered">
+              <tbody>
+                <th>S.N</th>
+                <th>Name</th>
+                <th>Permissions</th>
+                <th>Action</th>
+                {% for group in groups%}
+                <tr>
+                  <td>{{ forloop.counter }}</td>
+                  <td>{{ group.name }}</td>
+                  <td>
+                    <ol>
+                    {% for permission in group.permissions.all %}
+                      <li>{{ permission.name }}</li>
+                    {% endfor %}
+                    </ol>
+                  </td>
+                  <td>
+                    <a href="{% url 'core:update_group' group.id %}">
+                      <button class="btn btn-warning btn-sm">Edit Group</button>
+                    </a>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+{% endblock content %}

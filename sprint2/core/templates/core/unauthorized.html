@@ -1,0 +1,15 @@
+{% extends 'core/layout/master.html' %}
+
+{% block content %}
+    <section class="content">
+      <div class="row" style="padding: 30px; text-align: center;">
+        <div class="alert alert-danger" role="alert">
+          Unauthorized Access. Please Contact Your Super Admin For Further Access Rights.
+        </div>
+        <a href="{% url 'core:dashboard' %}">
+            <button class="btn btn-primary">Go To Dashboard</button>
+        </a>
+      </div>
+    </section>
+{% endblock content %}
+
