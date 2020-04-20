@@ -10,7 +10,7 @@ from uuid import uuid4
 
 def student_image_upload(instance, filename):
     ext = filename.split('.')[-1]
-    filename = 'student/{}_{}.{}'.format(filename, str(time.time()),ext)
+    filename = 'student/{}_{}.{}'.format(filename, str(instance.euid),ext)
     return filename
 
 def upload_student_files(instance, filename):
