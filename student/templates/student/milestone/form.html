@@ -1,0 +1,113 @@
+{% extends 'core/layout/master.html' %} {% load add_class %} {% load static %}
+{% block styles %}
+<link rel="stylesheet" href="{% static 'core/assets/select2/css/select2.min.css' %}" />
+<link rel="stylesheet" href="{% static 'core/assets/bootstrap-datepicker/bootstrap-datepicker.min.js' %}" />
+
+<style>
+    label {
+        margin: 5px 0px;
+        display: block;
+    }
+</style>
+{% endblock %} {% block content %}
+<section class="content-header">
+    <h1>
+        Add Milestone
+    </h1>
+    <ol class="breadcrumb">
+        <li>
+            <a href="{% url 'core:dashboard' %}"><i class="fa fa-dashboard"></i> Home</a>
+        </li>
+        <li><a href="{% url 'core:list_users' %}">Students</a></li>
+        <li>
+            <a href="#">
+                {{ student.first_name }} {% if student.middle_name %} {{
+        student.middle_name }} {% endif %} {{ student.last_name }}
+            </a>
+        </li>
+        <li><a href="#">Milestone</a></li>
+        <li class="active">Add</li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            {% if messages %} {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                {{ message }}
+            </div>
+            {% endfor %} {% endif %}
+        </div>
+        <form role="form" method="POST" enctype="multipart/form-data" autocomplete="off">
+            {% csrf_token %}
+            <div class="box-body">
+                <label>Degree plan</label>
+                {{ form.degree_plan | add_class:"form-control" }}
+                {{form.degree_plan.errors}}
+            </div>
+            <div class="box-body">
+                <label>Degree plan file</label>
+                {{ form.degree_plan_file | add_class:"form-control" }} {{form.degree_plan_file.errors}}
+            </div>
+            <div class="box-body">
+                <label>Major professor form</label>
+                {{ form.major_professor_form | add_class:"form-control" }}
+                {{form.major_professor_form.errors}}
+            </div>
+            <div class="box-body">
+                <label>Major professor form file</label>
+                {{ form.major_professor_form_file | add_class:"form-control" }}
+                {{form.major_professor_form_file.errors}}
+            </div>
+            <div class="box-body">
+                <label>Committee Appointment form</label>
+                {{ form.committee_appointment_form | add_class:"form-control" }}
+                {{form.committee_appointment_form.errors}}
+            </div>
+            <div class="box-body">
+                <label>Committee Appointment form file</label>
+                {{ form.committee_appointment_form_file | add_class:"form-control" }}
+                {{form.committee_appointment_form_file.errors}}
+            </div>
+            <div class="box-body">
+                <label>Qualifying exam</label>
+                {{ form.qualifying_exam | add_class:"form-control" }}
+                {{form.qualifying_exam.errors}}
+            </div>
+            <div class="box-body">
+                <label>Qualifying exam file</label>
+                {{ form.qualifying_exam_file | add_class:"form-control" }}
+                {{form.qualifying_exam_file.errors}}
+            </div>
+            <div class="box-body">
+                <label>Topic Proposal</label>
+                {{ form.topic_proposal | add_class:"form-control" }}
+                {{form.topic_proposal.errors}}
+            </div>
+            <div class="box-body">
+                <label>Topic Proposal file</label>
+                {{ form.topic_proposal_file | add_class:"form-control" }}
+                {{form.topic_proposal_file.errors}}
+            </div>
+            <div class="box-body">
+                <label>Thesis/Dissertation</label>
+                {{ form.thesis | add_class:"form-control" }}
+                {{form.thesis.errors}}
+            </div>
+            <div class="box-body">
+                <label>Thesis/Dissertation file</label>
+                {{ form.thesis_file | add_class:"form-control" }}
+                {{form.thesis_file.errors}}
+            </div>
+            <div class="box-footer">
+                <button type="submit" class="btn btn-primary pull-right btn-flat">
+                    Submit
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
+
+{% endblock content %} {% block scripts %} {% endblock %}

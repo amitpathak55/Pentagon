@@ -38,29 +38,17 @@
             <!-- Menu Footer-->
             <li class="user-footer">
               <div class="pull-left">
-                <a
-                  href="{% url 'core:change_my_password' %}"
-                  class="btn btn-default btn-flat"
-                  >Change Password</a
-                >
+                <a href="{% url 'core:change_my_password' %}" class="btn btn-default btn-flat">Change Password</a>
               </div>
               <div class="pull-right">
-                <a
-                  href="{% url 'core:logout' %}"
-                  class="btn btn-default btn-flat"
-                  >Sign out</a
-                >
+                <a href="{% url 'core:logout' %}" class="btn btn-default btn-flat">Sign out</a>
               </div>
             </li>
           </ul>
         </li>
       </ul>
     </div>
-    <a
-      href="{% url 'student:add_student' %}"
-      style="margin-top: 6px; margin-right: 120px;"
-      class="btn btn-primary pull-right"
-    >
+    <a href="{% url 'student:add_student' %}" style="margin-top: 6px; margin-left:10px;" class="btn btn-primary">
       <i class="fa fa-plus"></i>&nbsp; Add Student
     </a>
   </nav>

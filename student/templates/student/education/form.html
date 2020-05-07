@@ -22,7 +22,7 @@
     <li>
       <a href="{% url 'core:dashboard' %}"><i class="fa fa-dashboard"></i> Home</a>
     </li>
-    <li><a href="{% url 'core:list_users' %}">Students</a></li>
+    <li><a href="{% url 'core:dashboard' %}">Students</a></li>
     <li>
       <a href="#">
         {{ student.first_name }} {% if student.middle_name %} {{student.middle_name }} {% endif %}
@@ -63,6 +63,11 @@
       <div class="box-body">
         <label>Major</label>
         {{ form.major | add_class:"form-control"}} {{form.major.errors }}
+      </div>
+      <div class="box-body">
+        <label>Country</label>
+        {{ form.country | add_class:"form-control"}}
+        {{form.country.errors}}
       </div>
       <div class="box-body">
         <label>University</label>

@@ -74,6 +74,16 @@
         {{ form.assignment | add_class:"form-control" }}
         {{form.assignment.errors }}
       </div>
+      <div class="box-body">
+        <label>TBP Hours</label>
+        {{ form.tbp_hours | add_class:"form-control" }}
+        {{form.tbp_hours.errors }}
+      </div>
+      <div class="box-body">
+        <label>Note</label>
+        {{ form.note | add_class:"form-control" }}
+        {{form.note.errors }}
+      </div>
       <div class="box-footer">
         <button type="submit" class="btn btn-primary pull-right btn-flat">
           Submit

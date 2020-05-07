@@ -6,9 +6,9 @@
     <h1>
         Milestones
     </h1>
-    <!-- <a href="{% url 'student:add_user_note' student.pk %}" class="btn btn-success">
-        <i class="fa fa-plus"></i> Add New Note
-    </a> -->
+    <a href="{% url 'student:student_milestone_add' student.pk %}" class="btn btn-success">
+        <i class="fa fa-plus"></i> Add New Milestone
+    </a>
     <ol class="breadcrumb">
         <li><a href="{% url 'core:dashboard' %}"><i class="fa fa-dashboard"></i> Home</a></li>
         <li><a href="{% url 'core:dashboard' %}">Students</a></li>
@@ -36,7 +36,80 @@
         {% endif %}
         <div class="box-header with-border">
             <div class="box-body">
-
+                <table class="table table-bordered">
+                    <tbody>
+                        <th>S.N</th>
+                        <th>Degree Plan</th>
+                        <th>Major Professor Form</th>
+                        <th>Committee Appointment Form</th>
+                        <th>Qualifying exam</th>
+                        <th>Topic Proposal</th>
+                        <th>Thesis/Dissertation</th>
+                        <th></th>
+                        {% for student in student.milestones.all %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>
+                                {% if student.degree_plan_file %}
+                                <a target="_blank"
+                                    href="{{ student.degree_plan_file.url }}">{{ student.degree_plan }}</a>
+                                {% else %}
+                                {{ student.degree_plan }}
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if student.major_professor_form_file %}
+                                <a target="_blank"
+                                    href="{{ student.major_professor_form_file.url }}">{{ student.major_professor_form }}</a>
+                                {% else %}
+                                {{ student.major_professor_form }}
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if student.committee_appointment_form_file %}
+                                <a target="_blank"
+                                    href="{{ student.committee_appointment_form_file.url }}">{{ student.committee_appointment_form }}</a>
+                                {% else %}
+                                {{ student.committee_appointment_form }}
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if student.qualifying_exam_file %}
+                                <a target="_blank"
+                                    href="{{ student.qualifying_exam_file.url }}">{{ student.qualifying_exam }}</a>
+                                {% else %}
+                                {{ student.qualifying_exam }}
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if student.topic_proposal_file %}
+                                <a target="_blank"
+                                    href="{{ student.topic_proposal_file.url }}">{{ student.topic_proposal }}</a>
+                                {% else %}
+                                {{ student.topic_proposal }}
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if student.thesis_file %}
+                                <a target="_blank" href="{{ student.thesis_file.url }}">{{ student.thesis }}</a>
+                                {% else %}
+                                {{ student.thesis }}
+                                {% endif %}
+                            </td>
+                            <td>
+                                <a href="{% url 'student:student_milestone_update' student.pk %}"
+                                    class="btn btn-warning">
+                                    <i class="fa fa-edit"></i> Edit</a>
+                                <a href="{% url 'student:student_milestone_delete' student.pk %}"
+                                    class="delete_btn btn btn-danger">
+                                    <i class="fa fa-trash"></i> Delete</a>
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

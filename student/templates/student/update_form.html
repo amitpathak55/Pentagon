@@ -1,0 +1,298 @@
+{% extends 'core/layout/master.html' %} {% load add_class %} {% load static %}
+{% block styles %}
+<link rel="stylesheet" href="{% static 'core/assets/select2/css/select2.min.css' %}" />
+<link rel="stylesheet" href="{% static 'core/assets/bootstrap-datepicker/bootstrap-datepicker.min.js' %}" />
+<style>
+    label {
+        margin: 5px 0px;
+        display: block;
+    }
+
+    .formRow {
+        margin-top: 20px;
+    }
+</style>
+{% endblock %} {% block content %}
+<section class="content-header">
+    <h1>
+        Register Student
+    </h1>
+    <ol class="breadcrumb">
+        <li>
+            <a href="{% url 'core:dashboard' %}"><i class="fa fa-dashboard"></i> Home</a>
+        </li>
+        <li><a href="{% url 'core:list_users' %}">Students</a></li>
+        <li class="active">Register</li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            {% if messages %} {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                {{ message }}
+            </div>
+            {% endfor %} {% endif %}
+        </div>
+        <form role="form" method="POST" enctype="multipart/form-data" autocomplete="off">
+            {% csrf_token %}
+            <div class="box-body">
+                <div class="row formRow">
+                    <div class="col-md-3">
+                        <label>Semester</label>
+                        {{ form.starting_semester | add_class:"form-control" }}
+                        {{form.starting_semester.errors }}
+                    </div>
+                    <div class="col-md-3">
+                        <label>Entry Date</label>
+                        {{ form.entry_date | add_class:"form-control" }}
+                        {{form.entry_date.errors }}
+                    </div>
+                    <div class="col-md-3">
+                        <label>Last Name</label>
+                        {{ form.last_name | add_class:"form-control" }}
+                        {{form.last_name.errors }}
+                    </div>
+                    <div class="col-md-3">
+                        <label>First Name</label>
+                        {{ form.first_name | add_class:"form-control" }}
+                        {{form.first_name.errors }}
+                    </div>
+                </div>
+                <div class="row formRow">
+                    <div class="col-md-3">
+                        <label>Student ID*</label>
+                        {{ form.student_id | add_class:"form-control" }}
+                        {{form.student_id.errors }}
+                    </div>
+                    <div class="col-md-3">
+                        <label>Degree</label>
+                        {{ form.degree | add_class:"form-control" }} {{ form.degree.errors }}
+                    </div>
+                    <div class="col-md-3">
+                        <label>Program</label>
+                        {{ form.program | add_class:"form-control" }}
+                        {{form.program.errors }}
+                    </div>
+                    <div class="col-md-3">
+                        <label>GPA</label>
+                        {{ form.gpa | add_class:"form-control" }}
+                        {{form.gpa.errors }}
+                    </div>
+                </div>
+                <div class="row formRow">
+                    <div class="col-md-2">
+                        <label>GREQ</label>
+                        <div class="input-group">
+                            <input name="greq_score" {% if greq_score %} value="{{ greq_score }}" {% endif %}
+                                id="greq_score" type="text" class="form-control">
+                            <span class="input-group-addon" id="greq_old_score">
+                                {% if greq_old_score %}
+                                {{ greq_old_score }}
+                                {% endif %}
+                            </span>
+                        </div>
+                        {{form.greq_score.errors }}
+                    </div>
+                    <div class="col-md-2">
+                        <label>GREQ%</label>
+                        <div class="input-group">
+                            <input name="greq_score_percent"
+                                value="{% if greq_score_percent%} {{ greq_score_percent }} {% endif %}"
+                                id="greq_score_percent" type="text" class="form-control">
+                            <span class="input-group-addon">%</span>
+                        </div>
+                        {{form.greq_score_percent.errors }}
+                    </div>
+                    <div class="col-md-2">
+                        <label>GREV</label>
+                        <div class="input-group">
+                            <input name="grev_score" value="{% if grev_score %} {{ grev_score  }} {% endif %}"
+                                id="grev_score" type="text" class="form-control">
+                            <span class="input-group-addon" id="grev_old_score">
+                                {% if grev_old_score %}
+                                {{ grev_old_score }}
+                                {% endif %}
+                            </span>
+                        </div>
+                        {{form.grev_score.errors }}
+                    </div>
+                    <div class="col-md-2">
+                        <label>GREV%</label>
+                        <div class="input-group">
+                            <input name="grev_score_percent"
+                                value="{% if grev_score_percent %} {{ grev_score_percent  }} {% endif %}"
+                                id="grev_score_percent" type="text" class="form-control">
+                            <span class="input-group-addon">%</span>
+                        </div>
+                        {{form.grev_score_percent.errors }}
+                    </div>
+                    <div class="col-md-2">
+                        <label>GREAW</label>
+                        <div class="input-group">
+                            <input name="grea_score" {% if grea_score %} value="{{ grea_score }}" {% endif %}
+                                type="text" class="form-control">
+                            <span class="input-group-addon">%</span>
+                        </div>
+                        {{form.grea_score.errors }}
+                    </div>
+                    <div class="col-md-2">
+                        <label>GREAW%</label>
+                        <div class="input-group">
+                            <input name="grea_score_percent" {% if grea_score_percent %}
+                                value="{{ grea_score_percent }}" {% endif %} type="text" class="form-control">
+                            <span class="input-group-addon">%</span>
+                        </div>
+                        {{form.grea_score_percent.errors }}
+                    </div>
+                    <div class="col-md-2">
+                        <label>Total GRE</label>
+                        {{ form.gre_total_score | add_class:"form-control totalGreScore" }}
+                        {{form.gre_total_score.errors }}
+                    </div>
+                    <div class="col-md-2">
+                        <label>ELP</label>
+                        {{ form.elp_score | add_class:"form-control" }}
+                        {{form.elp_score.errors }}
+                    </div>
+                </div>
+                <div class="row formRow">
+                    <div class="col-md-2">
+                        <label>Gender</label>
+                        {{ form.gender | add_class:"form-control" }} {{ form.gender.errors}}
+                    </div>
+                    <div class="col-md-2">
+                        <label>City</label>
+                        {{ form.city | add_class:"form-control" }} {{ form.city.errors }}
+                    </div>
+                    <div class="col-md-2">
+                        <label>State</label>
+                        {{ form.state | add_class:"form-control" }} {{ form.state.errors }}
+                    </div>
+                    <div class="col-md-3">
+                        <label>Country</label>
+                        {{ form.country | add_class:"form-control" }}{{form.country.errors}}
+                    </div>
+                    <div class="col-md-3">
+                        <label>Citizenship</label>
+                        {{ form.citizenship | add_class:"form-control" }}
+                        {{form.citizenship.errors }}
+                    </div>
+                </div>
+                <div class="row formRow">
+                    <div class="col-md-8">
+                        <label>Email</label>
+                        {{ form.email | add_class:"form-control" }} {{ form.email.errors }}
+                    </div>
+                    <div class="col-md-4">
+                        <label>Immigration</label>
+                        {{ form.immigration | add_class:"form-control" }} {{ form.immigration.errors }}
+                    </div>
+                </div>
+
+                <div class="row formRow">
+                    <div class="col-md-8">
+                        <label>Level</label>
+                        {{ form.level | add_class:"form-control" }} {{ form.level.errors }}
+                    </div>
+                    <div class="col-md-4">
+                    </div>
+                </div>
+
+                <div class="row formRow">
+                    <div class="col-md-4">
+                        <label>Decision</label>
+                        {{ form.decision | add_class:"form-control" }} {{ form.decision.errors }}
+                    </div>
+                    <div class="col-md-4">
+                        <label>Decision Date</label>
+                        {{ form.decision_date | add_class:"form-control" }} {{ form.decision_date.errors }}
+                    </div>
+                    <div class="col-md-4">
+                        <label>Reason </label>
+                        {{ form.decision_reason | add_class:"form-control" }} {{ form.decision_reason.errors }}
+                    </div>
+                </div>
+
+                <div class="row formRow">
+                    <div class="col-md-12">
+                        <label>Image </label>
+                        {{ form.image | add_class:"form-control" }} {{ form.image.errors }}
+                    </div>
+                </div>
+            </div>
+            <div class="box-footer">
+                <input type="submit" name="next" style="margin-right: 5px;" value="Save"
+                    class="btn btn-success pull-right btn-flat">
+            </div>
+        </form>
+    </div>
+</section>
+
+{% endblock content %} {% block scripts %}
+<script src="{% static 'core/assets/select2/js/select2.min.js' %}"></script>
+<script src="{% static 'core/assets/bootstrap-datepicker/bootstrap-datepicker.min.js' %}"></script>
+<script>
+
+    $(document).on('input', '#greq_score', function () {
+        currentInput = $(this);
+        greq_value = $(this).val();
+        if (greq_value.length === 3) {
+            $.ajax({
+                url: "{% url 'student:getGreqScore' %}",
+                type: 'POST',
+                data: { score: greq_value, csrfmiddlewaretoken: '{{ csrf_token }}' },
+                success: function (res) {
+                    if (res.status == false) {
+                        alert(res.message)
+                    }
+                    if (res.status == true) {
+                        $('#greq_old_score').html(res.data);
+                        greq_old_value = res.data
+                        $('#greq_score_percent').val(res.rank);
+                    }
+                }
+            });
+        } else {
+            $('#greq_old_score').html(" ");
+            $('#greq_score_percent').val("");
+        }
+    });
+
+
+    $(document).on('input', '#grev_score', function () {
+        currentInput = $(this);
+        grev_value = $(this).val();
+        if (grev_value.length === 3) {
+            $.ajax({
+                url: "{% url 'student:getGrevScore' %}",
+                type: 'POST',
+                data: { score: grev_value, csrfmiddlewaretoken: '{{ csrf_token }}' },
+                success: function (res) {
+                    if (res.status == false) {
+                        alert(res.message)
+                    }
+                    if (res.status == true) {
+                        $('#grev_old_score').html(res.data);
+                        grev_old_value = res.data
+                        $('#grev_score_percent').val(res.rank);
+                    }
+                }
+            });
+        } else {
+            $('#grev_old_score').html(" ");
+            $('#grev_score_percent').val("");
+        }
+    });
+
+    $(document).on('focus', '.totalGreScore', function () {
+        greq_old_value = parseInt($('#greq_old_score').html());
+        grev_old_value = parseInt($('#grev_old_score').html());
+        if (greq_old_value && grev_old_value) {
+            $(this).val(greq_old_value + grev_old_value)
+        }
+    });
+</script>
+{% endblock %}
