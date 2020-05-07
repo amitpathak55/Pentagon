@@ -39,6 +39,9 @@
       </span>
       <a class="btn btn-warning btn-sm pull-right" href="{% url 'student:update_student' student.pk %}">
         <i class="fa fa-edit"></i>Edit</a>
+      <a class="btn btn-danger btn-sm pull-right delete_btn" style="margin-right: 5px;"
+        href="{% url 'student:delete_student' student.pk %}">
+        <i class="fa fa-trash"></i>Delete</a>
     </div>
     <div class="box-body">
       <div class="row">
@@ -93,27 +96,11 @@
             </li>
             <li class="small">
               <span class="fa-li"><i class="fa fa-lg fa-circle"></i></span>
-              GREAW%: {{ student.grea_score | default_if_none:"" }}
+              GREA%: {{ student.grea_score | default_if_none:"" }}
             </li>
             <li class="small">
               <span class="fa-li"><i class="fa fa-lg fa-circle"></i></span>
               Total GRE Score: {{ student.gre_total_score | default_if_none:"" }}
-            </li>
-            <li class="small">
-              <span class="fa-li"><i class="fa fa-lg fa-circle"></i></span>
-              Level: {{ student.level | default_if_none:"" }}
-            </li>
-            <li class="small">
-              <span class="fa-li"><i class="fa fa-lg fa-circle"></i></span>
-              Decision: {{ student.decision | default_if_none:"" }}
-            </li>
-            <li class="small">
-              <span class="fa-li"><i class="fa fa-lg fa-circle"></i></span>
-              Decision Date: {{ student.decision_date | default_if_none:"" }}
-            </li>
-            <li class="small">
-              <span class="fa-li"><i class="fa fa-lg fa-circle"></i></span>
-              Decision Reason: {{ student.decision_reason | default_if_none:"" }}
             </li>
           </ul>
         </div>
@@ -127,7 +114,6 @@
             <tr>
               <th>S.N</th>
               <th>Major</th>
-              <th>Country</th>
               <th>University</th>
               <th>End Date</th>
               <th>GPA</th>
@@ -139,7 +125,6 @@
             <tr>
               <td>{{ forloop.counter }}</td>
               <td>{{ item.major }}</td>
-              <td>{{ item.country }}</td>
               <td>{{ item.university }}</td>
               <td>{{ item.end_date }}</td>
               <td>{{ item.gpa }}</td>

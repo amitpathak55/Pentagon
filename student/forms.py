@@ -10,7 +10,7 @@ class EducationHistoryForm(forms.ModelForm):
     class Meta:
         model = EducationHistoy
         fields = (
-            'major', 'university', 'end_date', 'gpa', 'education_level', 'country'
+            'major', 'university', 'end_date', 'gpa', 'education_level'
         )
 
 class StudentFileUploadForm(forms.ModelForm):
@@ -34,5 +34,5 @@ class StudentEmploymentForm(forms.ModelForm):
         model = EmploymentHistory
         fields = (
             'hire_date', 'position', 'hire_type', 'pay_level', 'funding_source',
-            'assignment', 'tbp_hours', 'note'
+            'assignment'
         )
