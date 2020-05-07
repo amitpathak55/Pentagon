@@ -1,0 +1,116 @@
+<!-- Left side column. contains the sidebar -->
+<aside class="main-sidebar">
+  <!-- sidebar: style can be found in sidebar.less -->
+  <section class="sidebar">
+    <!-- /.search form -->
+    <!-- sidebar menu: : style can be found in sidebar.less -->
+    <ul class="sidebar-menu" data-widget="tree">
+      <li class="header">MAIN NAVIGATION</li>
+      <li class="treeview">
+        <a href="#"><i class="fa fa-user-circle"></i> Students
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu" style="display: none;">
+          <li>
+            <a href="{% url 'core:dashboard' %}">
+              <i class="fa fa-list"></i>List</a>
+          </li>
+          <li>
+            <a href="{% url 'student:add_student' %}">
+              <i class="fa fa-plus"></i>Add New</a>
+          </li>
+        </ul>
+      </li>
+      <li class="treeview">
+        <a href="#"><i class="fa fa-graduation-cap"></i> Degree
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu" style="display: none;">
+          <li>
+            <a href="{% url 'student:list_degree' %}">
+              <i class="fa fa-list"></i>List</a>
+          </li>
+          <li>
+            <a href="{% url 'student:add_degree' %}">
+              <i class="fa fa-plus"></i>Add New</a>
+          </li>
+        </ul>
+      </li>
+      <li class="treeview">
+        <a href="#"><i class="fa fa-book"></i> Program
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu" style="display: none;">
+          <li>
+            <a href="{% url 'student:list_program' %}">
+              <i class="fa fa-list"></i>List</a>
+          </li>
+          <li>
+            <a href="{% url 'student:add_program' %}">
+              <i class="fa fa-plus"></i>Add New</a>
+          </li>
+        </ul>
+      </li>
+
+      <li class="nav-item">
+        <a href="{% url 'student:report' %}" class="nav-link">
+          <i class="fa fa-file-text"></i>
+          Report
+        </a>
+      </li>
+
+      <li class="treeview">
+        <a href="#">
+          <i class="fa fa-users"></i>
+          <span>User Management</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu" style="display: none;">
+          <li class="treeview">
+            <a href="#"><i class="fa fa-users"></i> Groups
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu" style="display: none;">
+              <li>
+                <a href="{% url 'core:list_groups' %}">
+                  <i class="fa fa-list"></i>List</a>
+              </li>
+              <li>
+                <a href="{% url 'core:add_group' %}">
+                  <i class="fa fa-plus"></i>Add New</a>
+              </li>
+            </ul>
+          </li>
+          <li class="treeview">
+            <a href="#"><i class="fa fa-user"></i>Users
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu" style="display: none;">
+              <li>
+                <a href="{% url 'core:list_users' %}">
+                  <i class="fa fa-list"></i>List</a>
+              </li>
+              <li>
+                <a href="{% url 'core:create_user' %}">
+                  <i class="fa fa-plus"></i>Add New</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+  <!-- /.sidebar -->
+</aside>
